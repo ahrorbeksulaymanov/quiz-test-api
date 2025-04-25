@@ -17,7 +17,8 @@ class Question extends Model
         'ball', 
         'level_id',
         'category_id',
-        'correct_answer_id'
+        'correct_answer_id',
+        'test_ids'
     ];
 
     public function tests()

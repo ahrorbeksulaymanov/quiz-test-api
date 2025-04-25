@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Traits\ApiResponse;
-// use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -28,26 +27,30 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $data = [
+            "title" => $request->title,
+        ];
+
+        $category = Category::create($data);
+        return $this->singleItemResponse($category);
     }
 
     public function show(Category $category)
     {
-        //
-    }
-
-    public function edit(Category $category)
-    {
-        //
+        return $this->singleItemResponse($category);
     }
 
     public function update(UpdateCategoryRequest $request, Category $category)
-    {
-        //
+    {    
+        $data = $request->validated();
+    
+        $category->update($data);
+        return $this->singleItemResponse($category);
     }
 
     public function destroy(Category $category)
-    {
-        //
+    {    
+        $category->delete();
+        return $this->singleItemResponse($category);
     }
 }

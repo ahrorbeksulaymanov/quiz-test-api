@@ -8,6 +8,7 @@ use App\Http\Requests\StoreOptionRequest;
 use App\Http\Requests\UpdateOptionRequest;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class OptionController extends Controller
 {
@@ -28,51 +29,48 @@ class OptionController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreOptionRequest $request)
     {
-        //
+        $imagePath = null;
+        if ($request->hasFile('photo')) {
+            $imagePath = $request->file('photo')->store('photos', 'public');
+        }
+
+        $data = [
+            "title" => $request->title,
+            "question_id" => $request->question_id,
+            "photo" => $imagePath ?? null,
+            "is_correct" => $request->is_correct,
+        ];
+
+        $test = Option::create($data);
+        return $this->singleItemResponse($test);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Option $option)
     {
-        //
+        return $this->singleItemResponse($option);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Option $option)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateOptionRequest $request, Option $option)
     {
-        //
+        $data = $request->validated();
+        if ($request->hasFile('photo')) {
+            if ($option->photo && Storage::disk('public')->exists($option->photo)) {
+                Storage::disk('public')->delete($option->photo);
+            }
+            $data['photo'] = $request->file('photo')->store('photos', 'public');
+        } else {
+            $data['photo'] = $option->photo;
+        }
+    
+        $option->update($data);
+        return $this->singleItemResponse($option);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Option $option)
-    {
-        //
+    {    
+        $option->delete();
+        return $this->singleItemResponse($option);
     }
 }

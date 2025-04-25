@@ -25,51 +25,31 @@ class LevelController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreLevelRequest $request)
     {
-        //
+        $data = [
+            "title" => $request->title,
+            "ball" => $request->ball,
+        ];
+        $level = Level::create($data);
+        return $this->singleItemResponse($level);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Level $level)
     {
-        //
+        return $this->singleItemResponse($level);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Level $level)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateLevelRequest $request, Level $level)
     {
-        //
+        $data = $request->validated();
+        $level->update($data);
+        return $this->singleItemResponse($level);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Level $level)
-    {
-        //
+    {    
+        $level->delete();
+        return $this->singleItemResponse($level);
     }
 }

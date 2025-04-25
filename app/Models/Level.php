@@ -9,5 +9,5 @@ class Level extends Model
 {
     /** @use HasFactory<\Database\Factories\LevelFactory> */
     use HasFactory;
-    protected $fillable = ['title', "age"];
+    protected $fillable = ['title', "ball"];
 }

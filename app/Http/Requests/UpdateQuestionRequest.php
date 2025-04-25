@@ -11,7 +11,7 @@ class UpdateQuestionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class UpdateQuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string',
+            'description' => 'nullable|string',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5200', // ~5MB max
+            'order' => 'nullable|integer',
+            'level_id' => 'nullable|exists:levels,id',
+            'category_id' => 'nullable|exists:categories,id',
+            'correct_answer_id' => 'nullable|integer',
+            'ball' => 'required|integer',
         ];
     }
 }

@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('tests', function (Blueprint $table) {
@@ -16,7 +14,7 @@ return new class extends Migration
             $table->string("title");
             $table->string("description")->nullable();
             $table->integer("order")->nullable();
-            $table->integer("photo")->nullable();
+            $table->string("photo")->nullable();
             $table->integer("ball");
             $table->integer("duration");
             $table->foreignId("age_category_id")->nullable()->constrained()->onDelete('set null');
@@ -24,9 +22,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('tests');

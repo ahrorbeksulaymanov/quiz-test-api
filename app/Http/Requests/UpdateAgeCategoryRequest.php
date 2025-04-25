@@ -11,7 +11,7 @@ class UpdateAgeCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateAgeCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'from' => 'required|nullable',
+            'to' => 'required|nullable',
         ];
     }
 }

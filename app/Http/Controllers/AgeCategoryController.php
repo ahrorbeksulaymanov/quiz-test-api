@@ -25,51 +25,32 @@ class AgeCategoryController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreAgeCategoryRequest $request)
     {
-        //
+        $data = [
+            "title" => $request->title,
+            "from" => $request->from,
+            "to" => $request->to,
+        ];
+        $level = AgeCategory::create($data);
+        return $this->singleItemResponse($level);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(AgeCategory $ageCategory)
     {
-        //
+        return $this->singleItemResponse($ageCategory);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(AgeCategory $ageCategory)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateAgeCategoryRequest $request, AgeCategory $ageCategory)
     {
-        //
+        $data = $request->validated();
+        $ageCategory->update($data);
+        return $this->singleItemResponse($ageCategory);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(AgeCategory $ageCategory)
-    {
-        //
+    {    
+        $ageCategory->delete();
+        return $this->singleItemResponse($ageCategory);
     }
 }
