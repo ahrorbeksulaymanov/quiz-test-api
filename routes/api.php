@@ -45,37 +45,3 @@ Route::apiResources($routes_array, ['only' => ['index', 'show']]);
 Route::middleware('auth:sanctum')->group(function () use ($routes_array) {
     Route::apiResources($routes_array, ['except' => ['index', 'show']]);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Route::apiResource("levels", LevelController::class);
-// Route::apiResource("age-categories", AgeCategoryController::class);
-// Route::apiResource("tests", TestController::class);
-// Route::apiResource("questions", QuestionController::class);
-// Route::apiResource("options", OptionController::class);
