@@ -21,6 +21,19 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('role')->default('user');
+            $table->date('birth_date')->nullable();
+            $table->string('photo')->nullable();
+            $table->string('address')->nullable();  // Foydalanuvchining manzili
+            $table->string('city')->nullable();  // Shahar
+            $table->string('country')->nullable();  // Mamlakat
+            $table->timestamp('phone_verified_at')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->string('facebook_id')->nullable();  // Facebook ID
+            $table->string('google_id')->nullable();    // Google ID
+            $table->string('twitter_id')->nullable();   // Twitter ID
+            $table->string('language')->default('en');
+            $table->timestamp('last_active_at')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
