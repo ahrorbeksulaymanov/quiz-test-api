@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('tests/{testId}/questions', [QuestionTestController::class, 'index']);
     Route::post('tests/{testId}/questions', [TestController::class, 'questionAttach']);
 });
+
 Route::apiResource("categories", CategoryController::class);
 
 $routes_array = [
