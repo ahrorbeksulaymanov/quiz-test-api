@@ -25,15 +25,11 @@ Route::prefix('auth')->group(function () {
     });
 });
 
-// Route::post("/login", [AuthController::class, "login"]);
-// Route::post("/register", [AuthController::class, "register"]);
-// Route::middleware('auth:sanctum')->post("/logout", [AuthController::class, "logout"]);
-// Route::middleware('auth:sanctum')->get('/me', [AuthController::class, 'me']);
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('tests/{testId}/questions', [QuestionTestController::class, 'index']);
     Route::post('tests/{testId}/questions', [TestController::class, 'questionAttach']);
 });
+
 Route::apiResource("categories", CategoryController::class);
 
 $routes_array = [
@@ -50,37 +46,3 @@ Route::apiResources($routes_array, ['only' => ['index', 'show']]);
 Route::middleware('auth:sanctum')->group(function () use ($routes_array) {
     Route::apiResources($routes_array, ['except' => ['index', 'show']]);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Route::apiResource("levels", LevelController::class);
-// Route::apiResource("age-categories", AgeCategoryController::class);
-// Route::apiResource("tests", TestController::class);
-// Route::apiResource("questions", QuestionController::class);
-// Route::apiResource("options", OptionController::class);
